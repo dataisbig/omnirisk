@@ -20,7 +20,7 @@ DBSession = sessionmaker(bind=engine)
 # revert all of them back to the last commit by calling
 # session.rollback()
 session = DBSession()
-for document in archive.latest_upload.file.values:
+for document in archive.files.file.values:
     data = archive.get_file(document)
     print document
     for ix, row in data.iterrows():
