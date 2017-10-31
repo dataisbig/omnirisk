@@ -56,6 +56,7 @@ class AccidentArchiveFTP:
         head[-1] = head[-1][:-2]
         # these files were formatted by apes! APES!
         data = []
+        print head
         for line in f.readlines():
             l = []
             lo=line
@@ -94,4 +95,3 @@ def test():
             data = archive.get_file(i)
         except AssertionError:
             print i
-test()

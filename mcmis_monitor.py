@@ -1,28 +1,11 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-from create_db import Base, Accident
+from sql_alchemy_engine import session
+from create_db import Accident
 from ftp_retrieval import AccidentArchiveFTP
+from os.path import expanduser
 
-archive = AccidentArchiveFTP()
 
-engine = create_engine('mysql+pymysql://alex:tygrcnt@127.0.0.1/adas')
-# Bind the engine to the metadata of the Base class so that the
-# declaratives can be accessed through a DBSession instance
-Base.metadata.bind = engine
 
-DBSession = sessionmaker(bind=engine)
-# A DBSession() instance establishes all conversations with the database
-# and represents a "staging zone" for all the objects loaded into the
-# database session object. Any change made against the objects in the
-# session won't be persisted into the database until you call
-# session.commit(). If you're not happy about the changes, you can
-# revert all of them back to the last commit by calling
-# session.rollback()
-session = DBSession()
-for document in archive.files.file.values:
-    data = archive.get_file(document)
-    print document
+def add_new_accident_file(data):
     for ix, row in data.iterrows():
         # Insert a Person in the person table
         new_accident = Accident(
@@ -48,7 +31,24 @@ for document in archive.files.file.values:
             citation_issued=row.CITATION_ISSUED_DESC,
             sequence_num=row.SEQ_NUM,
         )
-
         session.add(new_accident)
+        session.commit()
 
-    session.commit()
+def main():
+    with open(expanduser('~')+'/mcmis_last.txt', 'rb') as last:
+        last_read = last.readline()[:-1]
+
+    archive = AccidentArchiveFTP()
+
+    if archive.latest_upload.file.values[0] == last_read:
+        print 'up to date'
+        return
+    else:
+        data = archive.get_file(archive.latest_upload.file.values[0])
+        add_new_accident_file(data)
+        with open(expanduser('~')+'/mcmis_last.txt', 'w') as last:
+            last.write(archive.latest_upload.file.values[0])
+        print 'new data!'
+
+if __name__ == '__main__':
+    main()
