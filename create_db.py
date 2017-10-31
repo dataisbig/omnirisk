@@ -51,7 +51,7 @@ class Accident(Base):
 
 
 
-def main():
+def create():
 
     # Create an engine that stores data in the local directory's
     # sqlalchemy_example.db file.

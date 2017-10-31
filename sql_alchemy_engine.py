@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from create_db import Base
 from socket import gethostname
 
-
+# checks the current host system and returns a properly configured sqlalchemy session
 host_name = gethostname()
 if host_name == 'lxpollara3':
     # configuration for alex's laptop
