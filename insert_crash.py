@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from create_db import Base, Vehicle, Accident
+from create_db import Base, Accident
 from ftp_retrieval import AccidentArchiveFTP
 
 archive = AccidentArchiveFTP()

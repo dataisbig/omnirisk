@@ -58,6 +58,7 @@ class AccidentArchiveFTP:
         data = []
         for line in f.readlines():
             l = []
+            lo=line
             line = line.split(',')
             # people who punctuate strings in CSV files with commas should be shot
             for i in line:
@@ -71,7 +72,6 @@ class AccidentArchiveFTP:
                     l.append(i)
             # remove extra escape char
             l[-1]=l[-1][:-2]
-
             data.append(l)
 
 
@@ -79,7 +79,6 @@ class AccidentArchiveFTP:
         f.close()
         for i in files:
             os.remove(i)
-
         data = pd.DataFrame(data, columns=head)
         data['TOW_AWAY'].replace('Y', '1', inplace=True)
         data['TOW_AWAY'].replace('N', '0', inplace=True)
@@ -88,3 +87,11 @@ class AccidentArchiveFTP:
         return data
 
 
+def test():
+    archive = AccidentArchiveFTP()
+    for i in archive.files.file.values:
+        try:
+            data = archive.get_file(i)
+        except AssertionError:
+            print i
+test()

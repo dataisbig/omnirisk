@@ -40,25 +40,24 @@ class Accident(Base):
     road_surface_cond = Column(String(250), nullable=True)
     weather = Column(String(250), nullable=True)
     light_cond = Column(String(250), nullable=True)
-    vin = Column(String(250), ForeignKey('vehicles.vin'), nullable=False)
+    vin = Column(String(250), nullable=True)
     license_num = Column(String(250), nullable=True)
     license_state = Column(String(250), nullable=True)
     severity_weight = Column(Integer, nullable=True)
     time_weight = Column(Integer, nullable=True)
     citation_issued = Column(String(250), nullable=True)
     sequence_num = Column(String(250), nullable=True)
-    vehicle = relationship(Vehicle)
 
 
 
 
+def main():
 
+    # Create an engine that stores data in the local directory's
+    # sqlalchemy_example.db file.
+    engine = create_engine ('mysql+pymysql://alex:tygrcnt@127.0.0.1/adas')
 
+    # Create all tables in the engine. This is equivalent to "Create Table"
+    # statements in raw SQL.
+    Base.metadata.create_all(engine)
 
-# Create an engine that stores data in the local directory's
-# sqlalchemy_example.db file.
-engine = create_engine ('mysql+pymysql://alex:tygrcnt@127.0.0.1/adas')
-
-# Create all tables in the engine. This is equivalent to "Create Table"
-# statements in raw SQL.
-Base.metadata.create_all(engine)
