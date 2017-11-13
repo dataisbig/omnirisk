@@ -27,7 +27,8 @@ def add_vin(vin):
             body_class = vin_data.listing['Body Class'],
             brake_system = vin_data.listing['Brake System Type'],
             drive_type = vin_data.listing['Drive Type'],
-            notes = ' '
+            notes = ' ',
+            manufacturer= vin_data.listing['Manufacturer Id']
             )
         session.add(new_vehicle)
         session.commit()

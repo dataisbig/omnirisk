@@ -11,7 +11,7 @@ class Vehicle(Base):
     __tablename__ = 'vehicles'
     vin = Column(String(250), primary_key=True, autoincrement=False)
     make = Column(String(250), nullable=True)
-    model = Column(String (250), nullable=False)
+    model = Column(String (250), nullable=True)
     year = Column(Integer, nullable=True)
     plant_city = Column(String(250), nullable=True)
     plant_state = Column(String(250), nullable=True)
@@ -21,6 +21,7 @@ class Vehicle(Base):
     brake_system = Column(String(250), nullable=True)
     drive_type = Column(String(250), nullable=True)
     notes = Column(String(250), nullable=True)
+    manufacturer = Column (String (255), nullable=True)
 
 
 class Accident(Base):
