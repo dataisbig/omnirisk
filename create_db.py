@@ -53,8 +53,9 @@ class AccidentMaster(Base):
 
     __tablename__ = 'accident_master'
     id = Column(Integer, primary_key=True)
+    crash_id = Column(String(8), nullable=False)
     report_state = Column(String(2), nullable=False)
-    report_num = Column(Integer, nullable=False)
+    report_num = Column(String(12), nullable=False)
     report_date = Column(Date, nullable=False)
     report_time = Column(Time, nullable=False)
     report_sequence_num = Column(Integer, nullable=False)
@@ -90,7 +91,7 @@ class AccidentMaster(Base):
     federally_recordable = Column(String(1), nullable=True)
     state_recordable = Column(String(1), nullable=True)
     safetynet_software_version = Column(String(10), nullable=True)
-    original_report_date = Column(Date, nullable=True)
+    safetynet_sequence_id = Column(String(10), nullable=True)
     transaction_code = Column(String(1), nullable=True)
     transaction_date = Column(Date, nullable=True)
     upload_byte = Column(String(1), nullable=True)
@@ -100,6 +101,7 @@ class AccidentMaster(Base):
     related_factors = Column(String(10), nullable=True)
     census_search_date = Column(Date, nullable=True)
     add_date = Column(Date, nullable=True)
+    change_date = Column(Date, nullable=True)
     changed_by_user = Column(String(30), nullable=True)
     changed_by_application = Column(String(61), nullable=True)
     safetynet_input_date = Column(Date, nullable=True)
