@@ -7,7 +7,7 @@ from socket import gethostname
 host_name = gethostname()
 if host_name == 'lxpollara3':
     # configuration for alex's laptop
-    engine = create_engine('mysql+pymysql://alex:tygrcnt@127.0.0.1/adas')
+    engine = create_engine('mysql+pymysql://alex:tygrcnt@127.0.0.1/adas?charset=utf8')
     Base.metadata.bind = engine
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
@@ -15,7 +15,7 @@ if host_name == 'lxpollara3':
 
 elif host_name == 'instance-1':
     # configuration for VM
-    engine = create_engine ('mysql+pymysql://alex:tygrcnt@104.197.42.10/adas')
+    engine = create_engine ('mysql+pymysql://alex:tygrcnt@104.197.42.10/adas?charset=utf8')
     Base.metadata.bind = engine
     DBSession = sessionmaker(bind=engine)
     session = DBSession ()
